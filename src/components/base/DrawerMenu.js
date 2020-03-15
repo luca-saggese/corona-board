@@ -229,6 +229,16 @@ class DrawerMenu extends React.Component {
                             Italian Data provided by <b>Protezione Civile</b>
                         </a>
                     </div>
+
+                    <div>
+                        <a
+                            className={classes.attributionItem}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={"https://github.com/luca-saggese"}>
+                            Italian adaptetion by <b>Luca Saggese</b>
+                        </a>
+                    </div>
                 </div>
             </div>
         )
