@@ -368,13 +368,13 @@ class ItalyDashboardPage extends React.Component {
 
         const pointList = province.filter(p=>(new Date(p.data.split(' ')[0]).getTime() == latest_date)).map(
           (prov) => {
-            console.log(prov.denominazione_provincia, prov.totale_casi , cur_nazione.totale_casi,prov.totale_casi / max_casi_provincia)
+            console.log(prov.denominazione_provincia, prov.totale_casi , cmax_casi_provincia,prov.totale_casi / max_casi_provincia)
               return {
                   geometry: [
                       prov.long,
                       prov.lat,
                   ],
-                  weight: Math.min(prov.totale_casi / cur_nazione.totale_casi, 1.0),
+                  weight: Math.min(prov.totale_casi / max_casi_provincia, 1.0),
               };
           }
       );
