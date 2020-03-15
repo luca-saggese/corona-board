@@ -604,6 +604,17 @@ class ItalyDashboardPage extends React.Component {
                                     key: 'dimessi_guariti',
                                     name: 'Guariti',
                                     color: colors[2],
+                                },
+                                {
+                                    key: 'attualmente_positivi',
+                                    name: 'Attualmente Positivi',
+                                    color: colors[1],
+                                }
+                                ,
+                                {
+                                    key: 'deceduti',
+                                    name: 'Deceduti',
+                                    color: colors[3],
                                 }
                             ]}
                         />
