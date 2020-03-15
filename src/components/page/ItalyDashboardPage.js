@@ -362,7 +362,10 @@ class ItalyDashboardPage extends React.Component {
           max_casi_provincia=Math.max(max_casi_provincia, p.totale_casi)
         });
         
+        const yesterday_date = new Date(latest_date) - 24 * 3600 * 1000;
         const cur_nazione = nazione.filter(p=>(new Date(p.data.split(' ')[0]).getTime() == latest_date))[0];
+        const yesterday_nazione = nazione.filter(p=>(new Date(p.data.split(' ')[0]).getTime() == yesterday_date))[0];
+
         const cur_regioni = regioni.filter(p=>(new Date(p.data.split(' ')[0]).getTime() == latest_date));
         const selectedCountryLatest = selectedCountry.filter(p=>(new Date(p.data.split(' ')[0]).getTime() == latest_date))[0];
 
@@ -397,7 +400,7 @@ class ItalyDashboardPage extends React.Component {
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
                             title={'Confermati'}
-                            value={cur_nazione ? cur_nazione.totale_casi : '-'}
+                            value={cur_nazione ? cur_nazione.totale_casi + ' (' + cur_nazione.totale_casi - yesterday_nazione.totale_casi +')' : '-'}
                             unit={''}
                         />
                     </Sticker>
@@ -415,7 +418,7 @@ class ItalyDashboardPage extends React.Component {
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
                             title={'Guariti'}
-                            value={cur_nazione ? cur_nazione.dimessi_guariti : '-'}
+                            value={cur_nazione ? cur_nazione.dimessi_guariti + ' (' + cur_nazione.dimessi_guariti - yesterday_nazione.dimessi_guariti +')' : '-'}
                             unit={''}
                         />
                     </Sticker>
@@ -431,7 +434,7 @@ class ItalyDashboardPage extends React.Component {
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
                             title={'Deceduti'}
-                            value={cur_nazione ? cur_nazione.deceduti : '-'}
+                            value={cur_nazione ? cur_nazione.deceduti + ' (' + cur_nazione.deceduti - yesterday_nazione.deceduti +')' : '-'}
                             unit={''}
                         />
                     </Sticker>
