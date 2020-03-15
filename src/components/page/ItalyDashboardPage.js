@@ -142,9 +142,7 @@ class ItalyDashboardPage extends React.Component {
     constructor(props) {
         super(props);
 
-        const initialCountryName = LocalStorageManager.getItem(
-            LocalStorageConst.KEY.SELECTED_COUNTRY,
-            '');
+        const initialCountryName = null;
 
         this.state = {
             // Set initially selected country
