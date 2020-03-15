@@ -180,7 +180,7 @@ class ItalyDashboardPage extends React.Component {
     };
 
     addPlus = (num) =>{
-      return num > 0 ? `+${num}`;
+      return num > 0 ? `+${num}` : num;
     }
 
     readNazioneCallback = (statusCode, response) => {
