@@ -472,7 +472,7 @@ class Layout extends React.Component {
 
                                 {/* GitHub Star */}
                                 <iframe
-                                    src="https://ghbtns.com/github-btn.html?user=luca-saggese&repo=stickyboard&type=star&count=true&size=large"
+                                    src="https://ghbtns.com/github-btn.html?user=soaple&repo=stickyboard&type=star&count=true&size=large"
                                     frameBorder="0"
                                     scrolling="0"
                                     width="130px"
