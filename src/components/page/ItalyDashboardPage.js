@@ -1,4 +1,4 @@
-// src/components/page/DashboardPage.js
+// src/components/page/ItalyDashboardPage.js
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -138,19 +138,22 @@ const initialBlocks = [
     { i: 'ComposedChart' },
 ];
 
-class DashboardPage extends React.Component {
+class ItalyDashboardPage extends React.Component {
     constructor(props) {
         super(props);
 
         const initialCountryName = LocalStorageManager.getItem(
             LocalStorageConst.KEY.SELECTED_COUNTRY,
-            'Korea, South');
+            '');
 
         this.state = {
             // Set initially selected country
             selectedCountryName: initialCountryName,
             // Data
             brief: null,
+            nazione: [],
+            regioni: [],
+            province: [],
             countryLatestDict: {},
             countryTimeseriesDict: {},
         };
@@ -160,6 +163,10 @@ class DashboardPage extends React.Component {
         ApiManager.Corona.readBrief(this.readBriefCallback);
         ApiManager.Corona.readLatest(this.readLatestCallback);
         ApiManager.Corona.readTimeseries(this.readTimeseriesCallback);
+        ApiManager.Corona.readNazione(this.readNazioneCallback);
+        ApiManager.Corona.readRegioni(this.readRegioniCallback);
+        ApiManager.Corona.readProvince(this.readProvinceCallback);
+
     }
 
     onSelectCountry = (event) => {
@@ -170,6 +177,45 @@ class DashboardPage extends React.Component {
                 LocalStorageConst.KEY.SELECTED_COUNTRY,
                 this.state.selectedCountryName);
         });
+    };
+
+    readNazioneCallback = (statusCode, response) => {
+      switch (statusCode) {
+          case StatusCode.OK:
+              this.setState({
+                  nazione: response,
+              });
+              break;
+          default:
+              alert(response.msg);
+              break;
+      }
+    };
+
+    readRegioniCallback = (statusCode, response) => {
+      switch (statusCode) {
+          case StatusCode.OK:
+              this.setState({
+                  regioni: response,
+              });
+              break;
+          default:
+              alert(response.msg);
+              break;
+      }
+    };
+
+    readProvinceCallback = (statusCode, response) => {
+      switch (statusCode) {
+          case StatusCode.OK:
+              this.setState({
+                  province: response,
+              });
+              break;
+          default:
+              alert(response.msg);
+              break;
+      }
     };
 
     readBriefCallback = (statusCode, response) => {
@@ -288,6 +334,9 @@ class DashboardPage extends React.Component {
         const {
             selectedCountryName,
             brief,
+            province,
+            regioni,
+            nazione,
             countryLatestDict,
             countryTimeseriesDict,
         } = data;
@@ -295,31 +344,47 @@ class DashboardPage extends React.Component {
 
         const colors = theme.colors.colorArray;
 
-        const selectedCountry = countryTimeseriesDict[selectedCountryName];
+        const selectedCountry = selectedCountryName ? regioni.filter(r=>(r.denominazione_regione == selectedCountryName)) : nazione;
+        selectedCountry.forEach(c=>{
+          const date = new Date(c.data.split(' ')[0]);
+          c.date = date.getTime();
+          c.confirmed = c.totale_casi;
+          c.infected = c.totale_attualmente_positivi;
+        })
         const targetTimeseriesData = selectedCountry
             ? selectedCountry.timeseries
             : [];
 
-        const selectedCountryLatest = countryLatestDict[selectedCountryName];
+        let latest_date = 0;
+        let max_casi_provincia = 0;
+        province.forEach(p=>{
+          latest_date=Math.max(latest_date, new Date(p.data.split(' ')[0]).getTime())
+          max_casi_provincia=Math.max(max_casi_provincia, p.totale_casi)
+        });
+        
+        const cur_nazione = nazione.filter(p=>(new Date(p.data.split(' ')[0]).getTime() == latest_date))[0];
+        const cur_regioni = regioni.filter(p=>(new Date(p.data.split(' ')[0]).getTime() == latest_date));
+        const selectedCountryLatest = selectedCountry.filter(p=>(new Date(p.data.split(' ')[0]).getTime() == latest_date))[0];
 
-        const pointList = Object.values(countryLatestDict).map(
-            (countryLatest) => {
-                return {
-                    geometry: [
-                        countryLatest.location.lng,
-                        countryLatest.location.lat,
-                    ],
-                    weight: Math.min(countryLatest.confirmed / 20, 1.0),
-                };
-            }
-        );
+        const pointList = province.filter(p=>(new Date(p.data.split(' ')[0]).getTime() == latest_date)).map(
+          (prov) => {
+            console.log(prov.denominazione_provincia, prov.totale_casi , cur_nazione.totale_casi,prov.totale_casi / max_casi_provincia)
+              return {
+                  geometry: [
+                      prov.long,
+                      prov.lat,
+                  ],
+                  weight: Math.min(prov.totale_casi / cur_nazione.totale_casi, 1.0),
+              };
+          }
+      );
 
         switch (block.i) {
             case 'TitleWorld':
                 return (
                     <Sticker key={block.i}>
                         <div style={{ fontSize: 32, fontWeight: 'bold' }}>
-                            Mondo
+                            Italia
                         </div>
                     </Sticker>
                 );
@@ -332,7 +397,7 @@ class DashboardPage extends React.Component {
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
                             title={'Confermati'}
-                            value={brief ? brief.confirmed : '-'}
+                            value={cur_nazione ? cur_nazione.totale_casi : '-'}
                             unit={''}
                         />
                     </Sticker>
@@ -350,7 +415,7 @@ class DashboardPage extends React.Component {
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
                             title={'Guariti'}
-                            value={brief ? brief.recovered : '-'}
+                            value={cur_nazione ? cur_nazione.dimessi_guariti : '-'}
                             unit={''}
                         />
                     </Sticker>
@@ -366,7 +431,7 @@ class DashboardPage extends React.Component {
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
                             title={'Deceduti'}
-                            value={brief ? brief.deaths : '-'}
+                            value={cur_nazione ? cur_nazione.deceduti : '-'}
                             unit={''}
                         />
                     </Sticker>
@@ -383,7 +448,7 @@ class DashboardPage extends React.Component {
                             value={
                                 brief
                                     ? `${(
-                                          (brief.deaths / brief.confirmed) *
+                                          (cur_nazione.deceduti / cur_nazione.totale_casi) *
                                           100
                                       ).toFixed(2)}`
                                     : '-'
@@ -403,25 +468,25 @@ class DashboardPage extends React.Component {
                                 alignItems: 'flex-end',
                             }}>
                             <div style={{ fontSize: 32, fontWeight: 'bold' }}>
-                                Nazione
+                                Regionale
                             </div>
 
                             <FormControl
                                 style={{ minWidth: 200, marginLeft: 32 }}>
-                                <InputLabel>Country & Region</InputLabel>
+                                <InputLabel>Regione</InputLabel>
                                 <Select
                                     value={selectedCountryName}
                                     onChange={this.onSelectCountry}>
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
-                                    {Object.values(countryTimeseriesDict).map(
-                                        (country) => {
+                                    {cur_regioni.map(
+                                        (regione) => {
                                             return (
                                                 <MenuItem
-                                                    key={country.name}
-                                                    value={country.name}>
-                                                    {country.name}
+                                                    key={regione.denominazione_regione}
+                                                    value={regione.denominazione_regione}>
+                                                    {regione.denominazione_regione}
                                                 </MenuItem>
                                             );
                                         }
@@ -442,7 +507,7 @@ class DashboardPage extends React.Component {
                             title={'Confermati'}
                             value={
                                 selectedCountryLatest
-                                    ? selectedCountryLatest.confirmed
+                                    ? selectedCountryLatest.totale_casi
                                     : '-'
                             }
                             unit={''}
@@ -464,7 +529,7 @@ class DashboardPage extends React.Component {
                             title={'Guariti'}
                             value={
                                 selectedCountryLatest
-                                    ? selectedCountryLatest.recovered
+                                    ? selectedCountryLatest.dimessi_guariti
                                     : '-'
                             }
                             unit={''}
@@ -484,7 +549,7 @@ class DashboardPage extends React.Component {
                             title={'Deceduti'}
                             value={
                                 selectedCountryLatest
-                                    ? selectedCountryLatest.deaths
+                                    ? selectedCountryLatest.deceduti
                                     : '-'
                             }
                             unit={''}
@@ -503,8 +568,8 @@ class DashboardPage extends React.Component {
                             value={
                                 selectedCountryLatest
                                     ? `${(
-                                          (selectedCountryLatest.deaths /
-                                              selectedCountryLatest.confirmed) *
+                                          (selectedCountryLatest.deceduti /
+                                              selectedCountryLatest.totale_casi) *
                                           100
                                       ).toFixed(2)}`
                                     : '-'
@@ -517,7 +582,7 @@ class DashboardPage extends React.Component {
                 return (
                     <Sticker key={block.i}>
                         <MultiLineChart
-                            data={targetTimeseriesData}
+                            data={selectedCountry}
                             xAxisDataKey={'date'}
                             lineDataArray={[
                                 {
@@ -526,15 +591,10 @@ class DashboardPage extends React.Component {
                                     color: colors[0],
                                 },
                                 {
-                                    key: 'recovered',
+                                    key: 'infected',
                                     name: 'Guariti',
                                     color: colors[2],
-                                },
-                                {
-                                    key: 'deaths',
-                                    name: 'Deceduti',
-                                    color: colors[1],
-                                },
+                                }
                             ]}
                         />
                     </Sticker>
@@ -543,13 +603,13 @@ class DashboardPage extends React.Component {
                 return (
                     <Sticker key={block.i}>
                         <HeatMap
-                            zoom={3}
+                            zoom={5}
                             minZoom={2}
                             maxZoom={17}
                             blur={40}
                             radius={30}
-                            longitude={41.890251}
-                            latitude={12.492373}
+                            longitude={12.492373}
+                            latitude={41.890251}
                             pointList={pointList}
                         />
                     </Sticker>
@@ -558,14 +618,11 @@ class DashboardPage extends React.Component {
                 return (
                     <Sticker key={block.i}>
                         <ComposedChart
-                            data={targetTimeseriesData}
+                            data={selectedCountry}
                             xAxisDataKey={'date'}
-                            barDataKey={'recovered'}
-                            barName={'Recovered'}
-                            barColor={colors[2]}
                             lineType={'linear'}
-                            lineDataKey={'confirmed'}
-                            lineName={'Confermati'}
+                            lineDataKey={'nuovi_attualmente_positivi'}
+                            lineName={'Nuovi Positivi'}
                             lineColor={colors[0]}
                         />
                     </Sticker>
@@ -585,9 +642,9 @@ class DashboardPage extends React.Component {
     }
 }
 
-DashboardPage.propTypes = {
+ItalyDashboardPage.propTypes = {
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(DashboardPage);
+export default withStyles(styles, { withTheme: true })(ItalyDashboardPage);

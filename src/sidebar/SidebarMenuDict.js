@@ -28,11 +28,18 @@ const SidebarMenuDict = {
      * Component Menus
      ******************/
     STATISTICS: [{
-        title: 'Dashboard',
+        title: 'Mondiale',
         icon: (<Dashboard />),
         url: '/statistics/dashboard',
         value: 101,
         need_permission: false
+    },
+    {
+      title: 'Italiana',
+      icon: (<Dashboard />),
+      url: '/statistics/italydashboard',
+      value: 101,
+      need_permission: false
     }, {
         title: 'Risk Ranking',
         icon: (<Error />),

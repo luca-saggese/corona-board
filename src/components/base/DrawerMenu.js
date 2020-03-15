@@ -185,7 +185,7 @@ class DrawerMenu extends React.Component {
                             className={classes.attributionItem}
                             target="_blank"
                             rel="noopener noreferrer"
-                            href={"https://github.com/soaple/corona-board"}>
+                            href={"https://github.com/luca-saggese/corona-board"}>
                             GitHub repository <b>CoronaBoard</b>
                         </a>
                     </div>
@@ -217,6 +217,16 @@ class DrawerMenu extends React.Component {
                             rel="noopener noreferrer"
                             href={"https://github.com/CSSEGISandData/COVID-19"}>
                             Data provided by <b>JHU CSSE</b>
+                        </a>
+                    </div>
+
+                    <div>
+                        <a
+                            className={classes.attributionItem}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={"https://github.com/pcm-dpc/COVID-19"}>
+                            Italian Data provided by <b>Protezione Civile</b>
                         </a>
                     </div>
                 </div>

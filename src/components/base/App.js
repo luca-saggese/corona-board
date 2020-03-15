@@ -12,6 +12,7 @@ import Layout from './Layout';
 import FullScreenLayout from './FullScreenLayout';
 // Statistics
 const DashboardPage = loadable(() => import('components/page/DashboardPage'));
+const ItalyDashboardPage = loadable(() => import('components/page/ItalyDashboardPage'));
 const RiskRankingPage = loadable(() => import('components/page/RiskRankingPage'))
 // Not found
 const NotFoundPage = loadable(() => import('components/page/NotFoundPage'));
@@ -81,6 +82,8 @@ class App extends React.Component {
                                     <Route exact path='/' component={() => { return <Redirect to='/statistics/dashboard' /> }} />
                                     {/* Statistics */}
                                     <Route path='/statistics/dashboard' component={DashboardPage} />
+                                    <Route path='/statistics/italydashboard' component={ItalyDashboardPage} />
+                                    
                                     <Route path='/statistics/risk_ranking' component={RiskRankingPage} />
                                     {/* Not found */}
                                     <Route path='*' component={NotFoundPage} />
