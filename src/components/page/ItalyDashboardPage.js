@@ -456,7 +456,7 @@ class ItalyDashboardPage extends React.Component {
                             valueColor={theme.colors.colorLight}
                             title={'Perc. Fatalità'}
                             value={
-                                brief
+                              cur_nazione
                                     ? `${(
                                           (cur_nazione.deceduti / cur_nazione.totale_casi) *
                                           100
