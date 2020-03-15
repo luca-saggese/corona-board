@@ -236,7 +236,7 @@ class DrawerMenu extends React.Component {
                             target="_blank"
                             rel="noopener noreferrer"
                             href={"https://github.com/luca-saggese"}>
-                            Italian adaptetion by <b>Luca Saggese</b>
+                            Italian adaptation by <b>Luca Saggese</b>
                         </a>
                     </div>
                 </div>
