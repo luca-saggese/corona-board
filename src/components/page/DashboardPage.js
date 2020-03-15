@@ -319,7 +319,7 @@ class DashboardPage extends React.Component {
                 return (
                     <Sticker key={block.i}>
                         <div style={{ fontSize: 32, fontWeight: 'bold' }}>
-                            World Wide
+                            Mondo
                         </div>
                     </Sticker>
                 );
@@ -331,7 +331,7 @@ class DashboardPage extends React.Component {
                             backgroundColor={theme.colors.colorArray[0]}
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
-                            title={'Confirmed'}
+                            title={'Confermati'}
                             value={brief ? brief.confirmed : '-'}
                             unit={''}
                         />
@@ -349,7 +349,7 @@ class DashboardPage extends React.Component {
                             backgroundColor={theme.colors.colorArray[2]}
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
-                            title={'Recovered'}
+                            title={'Guariti'}
                             value={brief ? brief.recovered : '-'}
                             unit={''}
                         />
@@ -365,7 +365,7 @@ class DashboardPage extends React.Component {
                             backgroundColor={theme.colors.colorArray[1]}
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
-                            title={'Deaths'}
+                            title={'Morti'}
                             value={brief ? brief.deaths : '-'}
                             unit={''}
                         />
@@ -379,7 +379,7 @@ class DashboardPage extends React.Component {
                             backgroundColor={theme.colors.colorArray[4]}
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
-                            title={'Fatality rate'}
+                            title={'Perc. Fatalità'}
                             value={
                                 brief
                                     ? `${(
@@ -439,7 +439,7 @@ class DashboardPage extends React.Component {
                             backgroundColor={theme.colors.colorArray[3]}
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
-                            title={'Confirmed'}
+                            title={'Confermati'}
                             value={
                                 selectedCountryLatest
                                     ? selectedCountryLatest.confirmed
@@ -461,7 +461,7 @@ class DashboardPage extends React.Component {
                             backgroundColor={theme.colors.colorArray[5]}
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
-                            title={'Recovered'}
+                            title={'Guariti'}
                             value={
                                 selectedCountryLatest
                                     ? selectedCountryLatest.recovered
@@ -481,7 +481,7 @@ class DashboardPage extends React.Component {
                             backgroundColor={theme.colors.colorArray[4]}
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
-                            title={'Deaths'}
+                            title={'Morti'}
                             value={
                                 selectedCountryLatest
                                     ? selectedCountryLatest.deaths
@@ -499,7 +499,7 @@ class DashboardPage extends React.Component {
                             backgroundColor={theme.colors.colorArray[10]}
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
-                            title={'Fatality rate'}
+                            title={'Perc Fatalità'}
                             value={
                                 selectedCountryLatest
                                     ? `${(
@@ -522,17 +522,17 @@ class DashboardPage extends React.Component {
                             lineDataArray={[
                                 {
                                     key: 'confirmed',
-                                    name: 'Confirmed',
+                                    name: 'Confermati',
                                     color: colors[0],
                                 },
                                 {
                                     key: 'recovered',
-                                    name: 'Recovered',
+                                    name: 'Guariti',
                                     color: colors[2],
                                 },
                                 {
                                     key: 'deaths',
-                                    name: 'Deaths',
+                                    name: 'Morti',
                                     color: colors[1],
                                 },
                             ]}
@@ -548,8 +548,8 @@ class DashboardPage extends React.Component {
                             maxZoom={17}
                             blur={40}
                             radius={30}
-                            longitude={127.024792}
-                            latitude={37.504296}
+                            longitude={41.890251}
+                            latitude={12.492373}
                             pointList={pointList}
                         />
                     </Sticker>
@@ -565,7 +565,7 @@ class DashboardPage extends React.Component {
                             barColor={colors[2]}
                             lineType={'linear'}
                             lineDataKey={'confirmed'}
-                            lineName={'Confirmed'}
+                            lineName={'Confermati'}
                             lineColor={colors[0]}
                         />
                     </Sticker>
