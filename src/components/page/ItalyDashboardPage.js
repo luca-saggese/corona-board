@@ -179,6 +179,10 @@ class ItalyDashboardPage extends React.Component {
         });
     };
 
+    addPlus = (num) =>{
+      return num > 0 ? `+${num}`;
+    }
+
     readNazioneCallback = (statusCode, response) => {
       switch (statusCode) {
           case StatusCode.OK:
@@ -403,7 +407,7 @@ class ItalyDashboardPage extends React.Component {
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
                             title={'Confermati'}
-                            value={cur_nazione ? `${cur_nazione.totale_casi}  (${cur_nazione.totale_casi - yesterday_nazione.totale_casi})` : '-'}
+                            value={cur_nazione ? `${cur_nazione.totale_casi}  (${this.addPlus(cur_nazione.totale_casi - yesterday_nazione.totale_casi)})` : '-'}
                             unit={''}
                         />
                     </Sticker>
@@ -421,7 +425,7 @@ class ItalyDashboardPage extends React.Component {
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
                             title={'Guariti'}
-                            value={cur_nazione ? `${cur_nazione.dimessi_guariti}  (${cur_nazione.dimessi_guariti - yesterday_nazione.dimessi_guariti})` : '-'}
+                            value={cur_nazione ? `${cur_nazione.dimessi_guariti}  (${this.addPlus(cur_nazione.dimessi_guariti - yesterday_nazione.dimessi_guariti)})` : '-'}
                             unit={''}
                         />
                     </Sticker>
@@ -437,7 +441,7 @@ class ItalyDashboardPage extends React.Component {
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
                             title={'Deceduti'}
-                            value={cur_nazione ? `${cur_nazione.deceduti}  (${cur_nazione.deceduti - yesterday_nazione.deceduti})` : '-'}
+                            value={cur_nazione ? `${cur_nazione.deceduti}  (${this.addPlus(cur_nazione.deceduti - yesterday_nazione.deceduti)})` : '-'}
                             unit={''}
                         />
                     </Sticker>
@@ -513,7 +517,7 @@ class ItalyDashboardPage extends React.Component {
                             title={'Confermati'}
                             value={
                                 selectedCountryLatest
-                                    ? `${selectedCountryLatest.totale_casi} (${selectedCountryLatest.totale_casi - selectedCountryYesterday.totale_casi})`
+                                    ? `${selectedCountryLatest.totale_casi} (${this.addPlus(selectedCountryLatest.totale_casi - selectedCountryYesterday.totale_casi)})`
                                     : '-'
                             }
                             unit={''}
@@ -535,7 +539,7 @@ class ItalyDashboardPage extends React.Component {
                             title={'Guariti'}
                             value={
                                 selectedCountryLatest
-                                    ? `${selectedCountryLatest.dimessi_guariti} (${selectedCountryLatest.dimessi_guariti - selectedCountryYesterday.dimessi_guariti})`
+                                    ? `${selectedCountryLatest.dimessi_guariti} (${this.addPlus(selectedCountryLatest.dimessi_guariti - selectedCountryYesterday.dimessi_guariti)})`
                                     : '-'
                             }
                             unit={''}
@@ -555,7 +559,7 @@ class ItalyDashboardPage extends React.Component {
                             title={'Deceduti'}
                             value={
                                 selectedCountryLatest
-                                    ? `${selectedCountryLatest.deceduti} (${selectedCountryLatest.deceduti - selectedCountryYesterday.deceduti})`
+                                    ? `${selectedCountryLatest.deceduti} (${this.addPlus(selectedCountryLatest.deceduti - selectedCountryYesterday.deceduti)})`
                                     : '-'
                             }
                             unit={''}
