@@ -606,7 +606,7 @@ class ItalyDashboardPage extends React.Component {
                                     color: colors[2],
                                 },
                                 {
-                                    key: 'attualmente_positivi',
+                                    key: 'totale_attualmente_positivi',
                                     name: 'Attualmente Positivi',
                                     color: colors[1],
                                 }
