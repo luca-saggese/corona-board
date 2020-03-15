@@ -368,6 +368,7 @@ class ItalyDashboardPage extends React.Component {
 
         const cur_regioni = regioni.filter(p=>(new Date(p.data.split(' ')[0]).getTime() == latest_date));
         const selectedCountryLatest = selectedCountry.filter(p=>(new Date(p.data.split(' ')[0]).getTime() == latest_date))[0];
+        const selectedCountryYesterday = selectedCountry.filter(p=>(new Date(p.data.split(' ')[0]).getTime() == (latest_date - 24 * 3600 * 1000)))[0];
 
         const pointList = province.filter(p=>(new Date(p.data.split(' ')[0]).getTime() == latest_date)).map(
           (prov) => {
@@ -510,7 +511,7 @@ class ItalyDashboardPage extends React.Component {
                             title={'Confermati'}
                             value={
                                 selectedCountryLatest
-                                    ? selectedCountryLatest.totale_casi
+                                    ? selectedCountryLatest.totale_casi + ' ('+ selectedCountryLatest.totale_casi - selectedCountryYesterday.totale_casi +')'
                                     : '-'
                             }
                             unit={''}
@@ -532,7 +533,7 @@ class ItalyDashboardPage extends React.Component {
                             title={'Guariti'}
                             value={
                                 selectedCountryLatest
-                                    ? selectedCountryLatest.dimessi_guariti
+                                    ? selectedCountryLatest.dimessi_guariti + ' ('+ selectedCountryLatest.dimessi_guariti - selectedCountryYesterday.dimessi_guariti +')'
                                     : '-'
                             }
                             unit={''}
@@ -552,7 +553,7 @@ class ItalyDashboardPage extends React.Component {
                             title={'Deceduti'}
                             value={
                                 selectedCountryLatest
-                                    ? selectedCountryLatest.deceduti
+                                    ? selectedCountryLatest.deceduti + ' ('+ selectedCountryLatest.deceduti - selectedCountryYesterday.deceduti +')'
                                     : '-'
                             }
                             unit={''}
