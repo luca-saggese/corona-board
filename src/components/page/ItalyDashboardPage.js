@@ -591,7 +591,7 @@ class ItalyDashboardPage extends React.Component {
                                     color: colors[0],
                                 },
                                 {
-                                    key: 'infected',
+                                    key: 'dimessi_guariti',
                                     name: 'Guariti',
                                     color: colors[2],
                                 }
