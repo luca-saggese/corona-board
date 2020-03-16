@@ -640,12 +640,9 @@ class ItalyDashboardPage extends React.Component {
                         <ComposedChart
                             data={selectedCountry}
                             xAxisDataKey={'date'}
-                            barDataKey={'nuovi_tamponi'}
-                            barName={'Temponi'}
-                            barColor={colors[2]}
                             lineType={'linear'}
                             lineDataKey={'nuovi_attualmente_positivi'}
-                            lineName={'Nuovi positivi'}
+                            lineName={'Nuovi Positivi'}
                             lineColor={colors[0]}
                         />
                     </Sticker>
