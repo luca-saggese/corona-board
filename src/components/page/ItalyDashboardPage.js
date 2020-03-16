@@ -347,11 +347,12 @@ class ItalyDashboardPage extends React.Component {
         const colors = theme.colors.colorArray;
 
         const selectedCountry = selectedCountryName ? regioni.filter(r=>(r.denominazione_regione == selectedCountryName)) : nazione;
-        selectedCountry.forEach(c=>{
+        selectedCountry.forEach((c,id)=>{
           const date = new Date(c.data.split(' ')[0]);
           c.date = date.getTime();
           c.confirmed = c.totale_casi;
           c.infected = c.totale_attualmente_positivi;
+          c.nuovi_tamponi = id == 0 ? c.tamponi : c.tamponi - selectedCountry[id-1].tamponi;
         })
         const targetTimeseriesData = selectedCountry
             ? selectedCountry.timeseries
@@ -639,7 +640,7 @@ class ItalyDashboardPage extends React.Component {
                         <ComposedChart
                             data={selectedCountry}
                             xAxisDataKey={'date'}
-                            barDataKey={'tamponi'}
+                            barDataKey={'nuovi_tamponi'}
                             barName={'Temponi'}
                             barColor={colors[2]}
                             lineType={'linear'}
