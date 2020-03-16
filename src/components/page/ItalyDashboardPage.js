@@ -404,8 +404,8 @@ class ItalyDashboardPage extends React.Component {
                             backgroundColor={theme.colors.colorArray[0]}
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
-                            title={'Confermati'}
-                            value={cur_nazione ? `${cur_nazione.totale_casi}  (${this.addPlus(cur_nazione.totale_casi - yesterday_nazione.totale_casi)})` : '-'}
+                            title={'Positivi'}
+                            value={cur_nazione ? `${cur_nazione.totale_attualmente_positivi}  (${this.addPlus(cur_nazione.totale_attualmente_positivi - yesterday_nazione.totale_attualmente_positivi)})` : '-'}
                             unit={''}
                         />
                     </Sticker>
@@ -512,10 +512,10 @@ class ItalyDashboardPage extends React.Component {
                             backgroundColor={theme.colors.colorArray[3]}
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
-                            title={'Confermati'}
+                            title={'Positivi'}
                             value={
                                 selectedCountryLatest
-                                    ? `${selectedCountryLatest.totale_casi} (${this.addPlus(selectedCountryLatest.totale_casi - selectedCountryYesterday.totale_casi)})`
+                                    ? `${selectedCountryLatest.totale_attualmente_positivi} (${this.addPlus(selectedCountryLatest.totale_attualmente_positivi - selectedCountryYesterday.totale_attualmente_positivi)})`
                                     : '-'
                             }
                             unit={''}
