@@ -57,8 +57,11 @@ const initialLayout = {
         { i: 'CountryDeaths', x: 6, y: 5, w: 3, h: 2 },
         { i: 'CountryFatalityRate', x: 9, y: 5, w: 3, h: 2 },
         { i: 'LineChart', x: 6, y: 7, w: 6, h: 6 },
-        { i: 'HeatMap', x: 0, y: 7, w: 6, h: 11 },
+        { i: 'HeatMap', x: 0, y: 7, w: 6, h: 16 },
         { i: 'ComposedChart', x: 6, y: 13, w: 6, h: 5 },
+        { i: 'GrowChart', x: 6, y: 18, w: 6, h: 5 },
+        
+        
     ],
     md: [
         { i: 'TitleWorld', x: 0, y: 0, w: 12, h: 1 },
@@ -72,8 +75,9 @@ const initialLayout = {
         { i: 'CountryDeaths', x: 6, y: 5, w: 3, h: 2 },
         { i: 'CountryFatalityRate', x: 9, y: 5, w: 3, h: 2 },
         { i: 'LineChart', x: 6, y: 7, w: 6, h: 5 },
-        { i: 'HeatMap', x: 0, y: 7, w: 6, h: 11 },
-        { i: 'ComposedChart', x: 6, y: 12, w: 6, h: 6 },
+        { i: 'HeatMap', x: 0, y: 7, w: 6, h: 16 },
+        { i: 'ComposedChart', x: 6, y: 13, w: 6, h: 5 },
+        { i: 'GrowChart', x: 6, y: 18, w: 6, h: 5 },
     ],
     sm: [
         { i: 'TitleWorld', x: 0, y: 0, w: 8, h: 1 },
@@ -118,7 +122,7 @@ const initialLayout = {
         { i: 'CountryFatalityRate', x: 0, y: 24, w: 4, h: 3 },
         { i: 'LineChart', x: 0, y: 27, w: 4, h: 6 },
         { i: 'HeatMap', x: 0, y: 39, w: 4, h: 6 },
-        { i: 'ComposedChart', x: 0, y: 33, w: 4, h: 6 },
+        { i: 'GrowChart', x: 0, y: 33, w: 4, h: 6 },
     ],
 };
 
@@ -135,6 +139,7 @@ const initialBlocks = [
     { i: 'CountryFatalityRate' },
     { i: 'LineChart' },
     { i: 'HeatMap' },
+    { i: 'ComposedChart' },
     { i: 'ComposedChart' },
 ];
 
@@ -354,6 +359,7 @@ class ItalyDashboardPage extends React.Component {
           c.infected = c.totale_attualmente_positivi;
           c.nuovi_tamponi = id == 0 ? c.tamponi : c.tamponi - selectedCountry[id-1].tamponi;
           c.nuovi_attualmente_positivi = c.nuovi_attualmente_positivi <0?0:c.nuovi_attualmente_positivi;
+          c.tasso_crescita = c.nuovi_attualmente_positivi / c.totale_attualmente_positivi;
         })
         const targetTimeseriesData = selectedCountry
             ? selectedCountry.timeseries
@@ -644,6 +650,19 @@ class ItalyDashboardPage extends React.Component {
                             lineType={'linear'}
                             lineDataKey={'nuovi_attualmente_positivi'}
                             lineName={'Nuovi Positivi'}
+                            lineColor={colors[0]}
+                        />
+                    </Sticker>
+                );
+           case 'GrowChart':
+                return (
+                    <Sticker key={block.i}>
+                        <ComposedChart
+                            data={selectedCountry}
+                            xAxisDataKey={'date'}
+                            lineType={'linear'}
+                            lineDataKey={'tasso_crescita'}
+                            lineName={'Tasso di crescita'}
                             lineColor={colors[0]}
                         />
                     </Sticker>
