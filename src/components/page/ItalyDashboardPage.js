@@ -359,7 +359,7 @@ class ItalyDashboardPage extends React.Component {
           c.infected = c.totale_attualmente_positivi;
           c.nuovi_tamponi = id == 0 ? c.tamponi : c.tamponi - selectedCountry[id-1].tamponi;
           c.nuovi_attualmente_positivi = c.nuovi_attualmente_positivi <0?0:c.nuovi_attualmente_positivi;
-          c.tasso_crescita = c.nuovi_attualmente_positivi / c.totale_attualmente_positivi;
+          c.tasso_crescita = (c.nuovi_attualmente_positivi / c.totale_attualmente_positivi) * 100;
         })
         const targetTimeseriesData = selectedCountry
             ? selectedCountry.timeseries
@@ -662,7 +662,7 @@ class ItalyDashboardPage extends React.Component {
                             xAxisDataKey={'date'}
                             lineType={'linear'}
                             lineDataKey={'tasso_crescita'}
-                            lineName={'Tasso di crescita'}
+                            lineName={'Tasso di crescita (%)'}
                             lineColor={colors[0]}
                         />
                     </Sticker>
