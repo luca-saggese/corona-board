@@ -140,7 +140,7 @@ const initialBlocks = [
     { i: 'LineChart' },
     { i: 'HeatMap' },
     { i: 'ComposedChart' },
-    { i: 'ComposedChart' },
+    { i: 'GrowChart' },
 ];
 
 class ItalyDashboardPage extends React.Component {
