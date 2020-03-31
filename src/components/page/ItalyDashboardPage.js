@@ -377,6 +377,7 @@ class ItalyDashboardPage extends React.Component {
         const yesterday_nazione = nazione.filter(p=>(new Date(p.data).getTime() == yesterday_date))[0];
 
         const cur_regioni = regioni.filter(p=>(new Date(p.data).getTime() == latest_date));
+console.log('cur_regioni')
         const selectedCountryLatest = selectedCountry.filter(p=>(new Date(p.data).getTime() == latest_date))[0];
         const selectedCountryYesterday = selectedCountry.filter(p=>(new Date(p.data).getTime() == (latest_date - 24 * 3600 * 1000)))[0];
 
