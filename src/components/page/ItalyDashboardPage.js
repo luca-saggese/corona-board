@@ -379,7 +379,7 @@ class ItalyDashboardPage extends React.Component {
         const cur_regioni = regioni.filter(p=>(p && p.data)).filter(p=>(p && p.data)).filter(p=>(new Date(p.data.split('T')[0]).getTime() == latest_date));
         const selectedCountryLatest = selectedCountry.filter(p=>(p && p.data)).filter(p=>(new Date(p.data.split('T')[0]).getTime() == latest_date))[0];
         const selectedCountryYesterday = selectedCountry.filter(p=>(p && p.data)).filter(p=>(new Date(p.data.split('T')[0]).getTime() == (latest_date - 24 * 3600 * 1000)))[0];
-
+console.log('latest_date', latest_date, new Date(latest_date), cur_regioni)
         const pointList = province.filter(p=>(p && p.data)).filter(p=>(new Date(p.data.split('T')[0]).getTime() == latest_date)).map(
           (prov) => {
             // console.log(prov.denominazione_provincia, prov.totale_casi , max_casi_provincia,prov.totale_casi / max_casi_provincia)
