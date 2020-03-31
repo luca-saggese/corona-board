@@ -31,6 +31,10 @@ const ApiManager = {
         readProvince: (callback) => {
           RestClient.sendGetRequest(UrlList.Corona.getProvinceUrl(), callback);
         },
+
+        readSpain: (callback) => {
+          RestClient.sendGetRequest(UrlList.Corona.getSpainUrl(), callback);
+        },
     },
 }
 

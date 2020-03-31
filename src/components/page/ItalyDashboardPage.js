@@ -356,10 +356,10 @@ class ItalyDashboardPage extends React.Component {
           const date = new Date(c.data.split(' ')[0]);
           c.date = date.getTime();
           c.confirmed = c.totale_casi;
-          c.infected = c.totale_attualmente_positivi;
+          c.infected = c.totale_positivi;
           c.nuovi_tamponi = id == 0 ? c.tamponi : c.tamponi - selectedCountry[id-1].tamponi;
-          c.nuovi_attualmente_positivi = c.nuovi_attualmente_positivi <0?0:c.nuovi_attualmente_positivi;
-          c.tasso_crescita = (c.nuovi_attualmente_positivi / c.totale_attualmente_positivi) * 100;
+          c.variazione_totale_positivi = c.variazione_totale_positivi <0?0:c.variazione_totale_positivi;
+          c.tasso_crescita = (c.variazione_totale_positivi / c.totale_positivi) * 100;
         })
         const targetTimeseriesData = selectedCountry
             ? selectedCountry.timeseries
@@ -411,7 +411,7 @@ class ItalyDashboardPage extends React.Component {
                             defaultColor={theme.colors.colorLight}
                             valueColor={theme.colors.colorLight}
                             title={'Positivi'}
-                            value={cur_nazione ? `${cur_nazione.totale_attualmente_positivi}  (${this.addPlus(cur_nazione.totale_attualmente_positivi - yesterday_nazione.totale_attualmente_positivi)})` : '-'}
+                            value={cur_nazione ? `${cur_nazione.totale_positivi}  (${this.addPlus(cur_nazione.totale_positivi - yesterday_nazione.totale_positivi)})` : '-'}
                             unit={''}
                         />
                     </Sticker>
@@ -521,7 +521,7 @@ class ItalyDashboardPage extends React.Component {
                             title={'Positivi'}
                             value={
                                 selectedCountryLatest
-                                    ? `${selectedCountryLatest.totale_attualmente_positivi} (${this.addPlus(selectedCountryLatest.totale_attualmente_positivi - selectedCountryYesterday.totale_attualmente_positivi)})`
+                                    ? `${selectedCountryLatest.totale_positivi} (${this.addPlus(selectedCountryLatest.totale_positivi - selectedCountryYesterday.totale_positivi)})`
                                     : '-'
                             }
                             unit={''}
@@ -610,7 +610,7 @@ class ItalyDashboardPage extends React.Component {
                                     color: colors[2],
                                 },
                                 {
-                                    key: 'totale_attualmente_positivi',
+                                    key: 'totale_positivi',
                                     name: 'Attualmente Positivi',
                                     color: colors[1],
                                 }
@@ -646,7 +646,7 @@ class ItalyDashboardPage extends React.Component {
                             data={selectedCountry}
                             xAxisDataKey={'date'}
                             lineType={'linear'}
-                            lineDataKey={'nuovi_attualmente_positivi'}
+                            lineDataKey={'variazione_totale_positivi'}
                             lineName={'Nuovi Positivi'}
                             lineColor={colors[0]}
                         />

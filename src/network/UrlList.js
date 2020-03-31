@@ -33,6 +33,10 @@ var UrlList = {
         getProvinceUrl: () => {
           return `${BASE_URL_PCM}/dpc-covid19-ita-province.json`;
         },
+
+        getSpainUrl: () => {
+          return 'https://raw.githubusercontent.com/victorvicpal/COVID19_es/master/data/csv_data/data/dataCOVID19_es.csv'
+        }
     },
 
 }
