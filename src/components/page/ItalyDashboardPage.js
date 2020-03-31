@@ -353,7 +353,7 @@ class ItalyDashboardPage extends React.Component {
 
         const selectedCountry = selectedCountryName ? regioni.filter(r=>(r.denominazione_regione == selectedCountryName)) : nazione;
         selectedCountry.forEach((c,id)=>{
-          const date = new Date(c.data);
+          const date = new Date(c.data.split('T')[0]);
           c.date = date.getTime();
           c.confirmed = c.totale_casi;
           c.infected = c.totale_positivi;
@@ -368,20 +368,19 @@ class ItalyDashboardPage extends React.Component {
         let latest_date = 0;
         let max_casi_provincia = 0;
         province.forEach(p=>{
-          latest_date=Math.max(latest_date, new Date(p.data).getTime())
+          latest_date=Math.max(latest_date, new Date(p.data.split('T')[0]).getTime())
           max_casi_provincia=Math.max(max_casi_provincia, p.totale_casi)
         });
         
         const yesterday_date = new Date(latest_date) - 24 * 3600 * 1000;
-        const cur_nazione = nazione.filter(p=>(new Date(p.data).getTime() == latest_date))[0];
-        const yesterday_nazione = nazione.filter(p=>(new Date(p.data).getTime() == yesterday_date))[0];
+        const cur_nazione = nazione.filter(p=>(new Date(p.data.split('T')[0]).getTime() == latest_date))[0];
+        const yesterday_nazione = nazione.filter(p=>(new Date(p.data.split('T')[0]).getTime() == yesterday_date))[0];
 
-        const cur_regioni = regioni.filter(p=>(new Date(p.data).getTime() == latest_date));
-console.log('cur_regioni')
-        const selectedCountryLatest = selectedCountry.filter(p=>(new Date(p.data).getTime() == latest_date))[0];
-        const selectedCountryYesterday = selectedCountry.filter(p=>(new Date(p.data).getTime() == (latest_date - 24 * 3600 * 1000)))[0];
+        const cur_regioni = regioni.filter(p=>(new Date(p.data.split('T')[0]).getTime() == latest_date));
+        const selectedCountryLatest = selectedCountry.filter(p=>(new Date(p.data.split('T')[0]).getTime() == latest_date))[0];
+        const selectedCountryYesterday = selectedCountry.filter(p=>(new Date(p.data.split('T')[0]).getTime() == (latest_date - 24 * 3600 * 1000)))[0];
 
-        const pointList = province.filter(p=>(new Date(p.data).getTime() == latest_date)).map(
+        const pointList = province.filter(p=>(new Date(p.data.split('T')[0]).getTime() == latest_date)).map(
           (prov) => {
             // console.log(prov.denominazione_provincia, prov.totale_casi , max_casi_provincia,prov.totale_casi / max_casi_provincia)
               return {
