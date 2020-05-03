@@ -646,7 +646,7 @@ console.log('latest_date', latest_date, new Date(latest_date), cur_regioni)
                             data={selectedCountry}
                             xAxisDataKey={'date'}
                             lineType={'linear'}
-                            lineDataKey={'variazione_totale_positivi'}
+                            lineDataKey={'nuovi_positivi'}
                             lineName={'Nuovi Positivi'}
                             lineColor={colors[0]}
                         />
