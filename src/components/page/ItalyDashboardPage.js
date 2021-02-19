@@ -369,7 +369,7 @@ class ItalyDashboardPage extends React.Component {
         let max_casi_provincia = 0;
         province.filter(p=>(p && p.data)).forEach(p=>{
           latest_date=Math.max(latest_date, new Date(p.data.split('T')[0]).getTime())
-          max_casi_provincia=Math.max(max_casi_provincia, p.totale_casi)
+          max_casi_provincia=Math.max(max_casi_provincia, p.totale_positivi)
         });
         
         const yesterday_date = new Date(latest_date) - 24 * 3600 * 1000;
@@ -388,7 +388,7 @@ console.log('latest_date', latest_date, new Date(latest_date), cur_regioni)
                       prov.long,
                       prov.lat,
                   ],
-                  weight: Math.min(prov.totale_casi / max_casi_provincia * 10, 1.0),
+                  weight: Math.min(prov.totale_positivi / max_casi_provincia * 10, 1.0),
               };
           }
       );
