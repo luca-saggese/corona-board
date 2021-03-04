@@ -359,7 +359,7 @@ class ItalyDashboardPage extends React.Component {
           c.infected = c.totale_positivi;
           c.nuovi_tamponi = id == 0 ? c.tamponi : c.tamponi - selectedCountry[id-1].tamponi;
           c.variazione_totale_positivi = c.variazione_totale_positivi <0?0:c.variazione_totale_positivi;
-          c.tasso_crescita = (c.variazione_totale_positivi / c.totale_positivi) * 100;
+          c.tasso_crescita = Math.min((c.variazione_totale_positivi / c.totale_positivi) * 100, 15);
         })
         const targetTimeseriesData = selectedCountry
             ? selectedCountry.timeseries
